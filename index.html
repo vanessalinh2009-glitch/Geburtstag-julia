@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alles Gute zum Geburtstag Julia!</title>
+  
+  <!-- Schriften von Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&family=Marcellus&display=swap" rel="stylesheet">
+
+  <style>
+    /* 1. HINTERGRUND UND LAYOUT */
+    body {
+      background-color: #ffb8de;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Marcellus', serif;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    /* 2. UMSCHLAG CONTAINER */
+    .envelope-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      height: 350px;
+      background: #c2a682;
+      border-radius: 8px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      perspective: 1000px;
+      margin: 140px auto 40px auto;
+      transition: margin-top 0.8s ease;
+    }
+
+    /* Vordere Tasche des Umschlags */
+    .envelope-pocket {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #d3b893 50%, #c2a682 50%);
+      clip-path: polygon(0 100%, 0 35%, 50% 65%, 100% 35%, 100% 100%);
+      z-index: 3;
+      border-radius: 0 0 8px 8px;
+    }
+
+    /* Obere Klappe des Umschlags */
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #b59873;
+      clip-path: polygon(0 0, 100% 0, 50% 50%);
+      transform-origin: top;
+      transition: transform 0.6s ease 0.2s, z-index 0.2s;
+      z-index: 4;
+    }
+
+    /* Weißes Siegel mit rosa Herz */
+    .wax-seal {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2), 0 4px 8px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff96cb;
+      font-size: 22px;
+      z-index: 5;
+      transition: opacity 0.4s ease 0.2s;
+    }
+
+    /* 3. DER PERGAMENT-BRIEF (GLEITET HERRAUS) */
+    .letter-card {
+      position: absolute;
+      bottom: 10px;
+      width: 90%;
+      max-width: 500px;
+      background: #f4e4bc;
+      background-image: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(0,0,0,0.05));
+      padding: 30px;
+      border-radius: 4px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2), inset 0 0 60px rgba(139, 69, 19, 0.15);
+      border: 1px solid #d4b886;
+      box-sizing: border-box;
+      z-index: 2;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s, z-index 0.1s 0.8s;
+    }
+
+    /* 4. TYPING EFFECT & BUTTON */
+    .letter-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      line-height: 1.8;
+      color: #2b1d0c;
+      white-space: pre-wrap;
+      min-height: 180px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background-color: #2b1d0c;
+      vertical-align: middle;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .controls {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .btn {
+      background: #8b4513;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-family: 'Marcellus', serif;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    /* 5. ANIMATION WENN MAN AUF DEN UMSCHLAG TIPPT (.open) */
+    .envelope-wrapper.open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope-wrapper.open .wax-seal {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .envelope-wrapper.open .letter-card {
+      transform: translateY(-220px);
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .envelope-wrapper.open {
+      margin-top: 240px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Umschlag + Brief -->
+  <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelope()">
+    
+    <div class="envelope-flap"></div>
+    <div class="envelope-pocket"></div>
+    <div class="wax-seal">♥</div>
+
+    <div class="letter-card" id="letterCard">
+      <div id="text-container" class="letter-text"></div><span class="cursor"></span>
+
+      <div class="controls">
+        <button class="btn" onclick="event.stopPropagation(); startLetter();">🩷klick mich🩷</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Hintergrundmusik -->
+  <audio id="bg-music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=piano-moment-111728.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // DEIN BRIEFTEXT
+    const meinBriefText = 
+      "Holllaaaaa Julia,\n\n" +
+      "Alles Gute zum Geburtstag!!!\n\n" +
+      "du bist jezt einfach 17 😎 und hast hoffentlic bald dein füherschein. " +
+      "Ich hoffe du hattest eine schöne zeit in Wien (leider ohne mich).\n\n" +
+      "Ich hab dich ganz dolle lieb 😚 \n\n" +
+      "Kuss auf die Nuss!!!\n\n" +
+      "💋💋💋";
+
+    const geschwindigkeit = 50; 
+    let i = 0;
+    let isOpen = false;
+
+    const textContainer = document.getElementById("text-container");
+    const music = document.getElementById("bg-music");
+    const envelope = document.getElementById("envelopeWrapper");
+
+    // Funktion zum Öffnen des Briefs
+    function openEnvelope() {
+      if (isOpen) return;
+      isOpen = true;
+
+      // Musik abspielen
+      music.play().catch(e => console.log("Audio-Autoplay blockiert:", e));
+
+      // Animation starten
+      envelope.classList.add("open");
+
+      // Sobald der Brief herausgeglitten ist (nach 1.2s), beginnt das Tippen
+      setTimeout(() => {
+        typeWriter();
+      }, 1200);
+    }
+
+    function typeWriter() {
+      if (i < meinBriefText.length) {
+        textContainer.textContent += meinBriefText.charAt(i);
+        i++;
+        setTimeout(typeWriter, geschwindigkeit);
+      }
+    }
+
+    function startLetter() {
+      textContainer.textContent = "";
+      i = 0;
+      typeWriter();
+    }
+  </script>
+
+</body>
+</html>
